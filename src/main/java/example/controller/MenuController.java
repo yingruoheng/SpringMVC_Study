@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/menu")
@@ -45,7 +46,6 @@ public class MenuController {
     //通过name获取菜单
     public ReturnBean getMenuByName(String menuname) throws UnsupportedEncodingException {
         logger.info("menuname{}", menuname);
-        String s = new String(menuname.getBytes(), "UTF-8");
         ReturnBean returnBean = new ReturnBean();
         Menu menu = new Menu();
         menu = menuService.getMenuByName(menuname);
@@ -137,6 +137,16 @@ public class MenuController {
             object.put("result", "修改失败");
         }
         returnBean.setRetBean(object);
+        return returnBean;
+    }
+
+    @RequestMapping(value = "/menus")
+    @ResponseBody
+    //获取所有菜单
+    public ReturnBean getUsers() {
+        ReturnBean returnBean = new ReturnBean();
+        List<Menu> menus = menuService.getMenus();
+        returnBean.setRetBean(menus);
         return returnBean;
     }
 }
