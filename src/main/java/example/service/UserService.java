@@ -1,10 +1,9 @@
 package example.service;
 
-import example.model.User;
-import org.springframework.stereotype.Service;
+import example.model.User;;
 
 import java.util.List;
-//@Service
+
 public interface UserService {
     public User getUser(String username);
 

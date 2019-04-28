@@ -1,6 +1,5 @@
 package example.controller;
 
-import com.alibaba.druid.util.StringUtils;
 import example.dao.UserMapper;
 import example.model.ReturnBean;
 import example.model.User;
