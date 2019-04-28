@@ -13,5 +13,6 @@
 </head>
 <body>
 <h2>Test success!</h2>
+<button type="button">Click Me!</button>
 </body>
 </html>

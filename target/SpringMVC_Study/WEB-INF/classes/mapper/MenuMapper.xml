@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.MenuMapper">
+    <select id="getMenuById" parameterType="java.lang.Integer" resultType="example.model.Menu">
+        SELECT * from menu where menuid = #{menuid}
+    </select>
+
+    <select id="getMenuByName" parameterType="java.lang.String" resultType="example.model.Menu">
+        SELECT * from menu where menuname = #{menuname}
+    </select>
+
+    <insert id="insertMenu" parameterType="example.model.Menu">
+        insert into menu
+        (menuname,price,introduction,picurl,status)
+        values
+        (#{menuname},#{price},#{introduction},#{picurl},#{status})
+    </insert>
+
+    <delete id="deleteMenu" parameterType="java.lang.Integer">
+      DELETE FROM menu WHERE menuid = #{menuid}
+    </delete>
+
+    <update id="updateMenu" parameterType="example.model.Menu">
+        UPDATE menu SET menuname=#{menuname}, price=#{price}, introduction=#{introduction}, picurl=#{picurl}, status=#{status}
+        where menuid=#{menuid}
+    </update>
+
+    <select id="getMenus" parameterType="java.util.HashMap" resultType="example.model.Menu">
+        SELECT * from menu
+    </select>
+</mapper>
