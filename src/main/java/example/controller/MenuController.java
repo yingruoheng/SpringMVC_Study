@@ -4,6 +4,7 @@ import example.dao.MenuMapper;
 import example.model.Menu;
 import example.model.ReturnBean;
 import example.service.MenuService;
+import example.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class MenuController {
     @RequestMapping(value = "/menuByName")
     @ResponseBody
     //通过name获取菜单
-    public ReturnBean getMenuByName(String menuname) throws UnsupportedEncodingException {
+    public ReturnBean getMenuByName(String menuname) {
         logger.info("menuname{}", menuname);
         ReturnBean returnBean = new ReturnBean();
         Menu menu = new Menu();
@@ -118,6 +119,7 @@ public class MenuController {
         com.alibaba.fastjson.JSONObject object = new com.alibaba.fastjson.JSONObject();
 
         com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSONObject.parseObject(param);
+        Integer menuid = Integer.parseInt(jsonObject.getString("menuid"));
         String menuname = jsonObject.getString("menuname");
         Integer price = Integer.parseInt(jsonObject.getString("price"));
         String introduction = jsonObject.getString("introduction");
@@ -125,12 +127,13 @@ public class MenuController {
         String status = jsonObject.getString("status");
 
         Menu menu = new Menu();
+        menu.setMenuid(menuid);
         menu.setMenuname(menuname);
         menu.setPrice(price);
         menu.setIntroduction(introduction);
         menu.setPicurl(picurl);
         menu.setStatus(status);
-        int insertResult = menuService.insertMenu(menu);
+        int insertResult = menuService.updateMenu(menu);
         if( insertResult == 1){
             object.put("result", "修改成功");
         }else {
@@ -142,8 +145,8 @@ public class MenuController {
 
     @RequestMapping(value = "/menus")
     @ResponseBody
-    //获取所有菜单
-    public ReturnBean getUsers() {
+    //获取所有单
+    public ReturnBean getMenus() {
         ReturnBean returnBean = new ReturnBean();
         List<Menu> menus = menuService.getMenus();
         returnBean.setRetBean(menus);
